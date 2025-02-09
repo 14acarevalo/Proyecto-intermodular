@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+
+{% block title %}Detalles del evento{% endblock %}
+
+
+<header class="navbar navbar-expand-lg bg-primary text-white text-center p-3">
+    <div class="container">
+        <h4><span>Campaneros Cars</span></h4>
+        <h4>La mejor página de coches con Flask</h4>
+    </div>
+</header>
+
+<!-- Menú personalizado -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo alineado a la izquierda -->
+        <a class="navbar-brand" href="#">
+            <img src="static/images/logo.png" alt="Logo de la empresa" style="width:160px; height:100px;">
+        </a>
+
+        <!-- Botón de menú para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú alineado a la derecha -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% block menu %}
+            <ul class="navbar-nav ms-auto" style="text-align: center;">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('informacion') }}">Información sobre nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listado_eventos') }}">¿Qué eventos hay disponibles?</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_usuario') }}">Crear usuario</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listar_usuarios') }}">Mostrar_usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a></li>
+
+            </ul>
+            {% endblock %}
+
+        </div>
+    </div>
+</nav>
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center mb-5">Listado de eventos</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        {% for evento in eventos %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h2 class="card-title">{{ evento.1 }}</h2> <!-- Nombre del evento -->
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Dirección:</strong> {{ evento.2 }}</p>
+                        <p><strong>Ciudad:</strong> {{ evento.5 }}</p>
+                        <p><strong>Organizador del evento:</strong> {{ evento.3 }}</p>
+                        <p><strong>Inscritos en el evento:</strong> {{ evento.4 }}</p>
+                        <p><strong>Teléfono de contacto:</strong> {{ evento.6 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="col-12 text-center">No hay eventos registrados en este momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

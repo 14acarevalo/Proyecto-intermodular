@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+
+{% block title %}Insertar Usuario{% endblock %}
+
+{% block content %}
+<div>
+    <div class="card-body">
+        <form action="{{ url_for('insertar_usuario') }}" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nombre"><strong>Nombre: </strong></label>
+                        <input type="text" class="form-control text-center" id="nombre" name="nombre" required 
+                            placeholder="Introduce tu nombre" 
+                            {% if usuario %} value="{{ usuario[1] }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="apellidos"><strong>Apellidos:</strong></label>
+                        <input type="text" class="form-control text-center" id="apellidos" name="apellidos" required 
+                            placeholder="Introduce tus apellidos" 
+                            {% if usuario %} value="{{ usuario[2] }}" {% endif %}>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="telefono"><strong>Teléfono:</strong></label>
+                        <input type="number" class="form-control text-center" id="telefono" name="telefono" required 
+                            placeholder="Introduce tu teléfono" 
+                            {% if usuario %} value="{{ usuario[3] }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email"><strong>Email:</strong></label>
+                        <input type="email" class="form-control text-center" id="email" name="email" required 
+                            placeholder="Introduce tu correo electrónico" 
+                            {% if usuario %} value="{{ usuario[4] }}" {% endif %}>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="password"><strong>Contraseña:</strong></label>
+                    <input type="password" class="form-control text-center" id="password" name="password" required 
+                        placeholder="Introduce tu contraseña" 
+                        {% if usuario %} value="{{ usuario[5] }}" {% endif %}>
+                </div>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary" onclick="resaltar()">Guardar usuario</button> 
+        </form>
+        <div class="mt-3">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver al Inicio</a>
+        </div>
+    </div>
+</div>
+<script>
+    function resaltar(){
+        alert(`Bienvenido ${document.getElementById("nombre").value}`);
+    }
+</script>
+{% endblock %}
+
+{% block footer %}
+<p>Recuerde que para que su vehículo sea considerado clásico, la fecha de fabricación tendrá que ser anterior a 1990.</p>
+{% endblock %}

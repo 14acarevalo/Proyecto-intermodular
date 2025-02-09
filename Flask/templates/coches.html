@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+
+{% block title %}Detalles del Coche{% endblock %}
+
+
+<header class="navbar navbar-expand-lg bg-primary text-white text-center p-3">
+    <div class="container">
+        <h4><span>Campaneros Cars</span></h4>
+        <h4>La mejor página de coches con Flask</h4>
+    </div>
+</header>
+
+<!-- Menú personalizado -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo alineado a la izquierda -->
+        <a class="navbar-brand" href="#">
+            <img src="static/images/logo.png" alt="Logo de la empresa" style="width:160px; height:100px;">
+        </a>
+
+        <!-- Botón de menú para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú alineado a la derecha -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% block menu %}
+            <ul class="navbar-nav ms-auto" style="text-align: center;">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('menu_admin') }}">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_coche') }}">Crear coche</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('coches') }}">Listar coches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_evento') }}">Cree su evento</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('mostrar_eventos') }}">Eventos disponibles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listar_usuarios') }}">Mostrar_usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a></li>
+
+            </ul>
+            {% endblock %}
+
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Listado de Coches</h1>
+    {%with messages = get_flashed_messages()%}
+    {% if messages %}
+        {%for message in messages%}
+            <div class="message alert-success">
+                {{message}}
+            </div>
+        {%endfor%}
+    {%endif%}
+    {% endwith %}
+    <div class="row">
+        {% for coche in coches %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h2 class="card-title">{{ coche.1 }} {{ coche.2 }}</h3> <!-- Marca y Modelo -->
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Precio:</strong> {{ coche.3 }} €</p>
+                        <p><strong>Ciudad:</strong> {{ coche.4 }}</p>
+                        <p><strong>Año del vehículo:</strong> {{ coche.5 }}</p>
+                        <p><strong>Nombre del dueño del vehículo:</strong> {{ coche.6 }}</p>
+                        <p><strong>Kilometros del vehículo:</strong> {{ coche.7 }} kms</p>
+                        <p><strong>Motor del vehículo:</strong> {{ coche.8 }}</p>
+                        <p><strong>Telefono de contacto del dueño:</strong> {{ coche.9 }}</p>
+                        <a href="{{ url_for('editar_coche', coche_id=coche.0) }}" class="btn btn-success">Editar</a>
+                        <a href="{{ url_for('borrar_coche', coche_id=coche.0) }}" class="btn btn-info">Eliminar</a>
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="col-12 text-center">No hay coches registrados en este momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

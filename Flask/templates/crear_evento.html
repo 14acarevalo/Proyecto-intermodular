@@ -1,0 +1,120 @@
+{% extends 'index.html' %}
+
+{% block title %}Insertar Coche{% endblock %}
+<header class="navbar navbar-expand-lg bg-primary text-white text-center p-3">
+    <div class="container">
+        <h4><span>Campaneros Cars</span></h4>
+        <h4>La mejor página de coches con Flask</h4>
+    </div>
+</header>
+
+<!-- Menú personalizado -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo alineado a la izquierda -->
+        <a class="navbar-brand" href="#">
+            <img src="static/images/logo.png" alt="Logo de la empresa" style="width:160px; height:100px;">
+        </a>
+
+        <!-- Botón de menú para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú alineado a la derecha -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% block menu %}
+            <ul class="navbar-nav ms-auto" style="text-align: center;">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('menu_admin') }}">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_coche') }}">Crear coche</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('coches') }}">Listar coches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_evento') }}">Cree su evento</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('mostrar_eventos') }}">Eventos disponibles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listar_usuarios') }}">Mostrar_usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a></li>
+
+            </ul>
+            {% endblock %}
+
+        </div>
+    </div>
+</nav>
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        {% if evento %}
+        <h2 class="text-center text-dark my-4">
+            Evento a modificar: 
+            <span class="fw-bold">{{ evento.1 }}</span>
+        </h2>        
+        {% else %}
+            Inserte datos de su evento:
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nombreEvento"><strong>Nombre del evento: </strong></label>
+                        <input type="text" class="form-control text-center" id="nombreEvento" name="nombreEvento" required 
+                            placeholder="Introduce el nombre del evento" 
+                            {% if evento %} value="{{ evento.1 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="direccionEvento"><strong>Direccion del evento:</strong></label>
+                        <input type="text" class="form-control text-center" id="direccionEvento" name="direccionEvento" required 
+                            placeholder="Introduce la direccion del evento:" 
+                            {% if evento %} value="{{ evento.2 }}" {% endif %}>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="organizadorEvento"><strong>¿Quien organiza el evento?</strong></label>
+                        <input type="organizadorEvento" class="form-control text-center" id="organizadorEvento" name="organizadorEvento" required 
+                            placeholder="Introduce el nombre del organizador del evento" 
+                            {% if evento %} value="{{ evento.3 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="participantesEvento"><strong>Participantes evento</strong></label>
+                        <input type="text" class="form-control text-center" id="participantesEvento" name="participantesEvento" required 
+                            placeholder="Introduce el número de participantes a considerar" 
+                            {% if evento %} value="{{ evento.4 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ciudadEvento"><strong>¿En qué ciudad va a tener lugar el evento?</strong></label>
+                        <input type="text" class="form-control text-center" id="ciudadEvento" name="ciudadEvento" required 
+                            placeholder="Introduce el nombre de la ciudad del evento" 
+                            {% if evento %} value="{{ evento.5 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="telefonoEvento"><strong>Telefono del organizador</strong></label>
+                        <input type="text" class="form-control text-center" id="telefonoEvento" name="telefonoEvento" required 
+                            placeholder="Introduce el telefono del organizador del evento" 
+                            {% if evento %} value="{{ evento.6 }}" {% endif %}>
+                    </div>
+                </div>              
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary">Guardar evento</button>
+        </form>
+        <div class="mt-3">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver al Inicio</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p> Recuerde que para que su vehículo sea considerado clásico, la fecha de fabricación tendrá que ser anterior a 1990.</p>
+{% endblock %}

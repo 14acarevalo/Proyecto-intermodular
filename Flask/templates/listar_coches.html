@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+
+{% block title %}Detalles del Coche{% endblock %}
+
+{% block header %}
+<header class="navbar navbar-expand-lg bg-primary text-white text-center p-3">
+    <div class="container">
+        <h4><span>Campaneros Cars</span></h4>
+        <h4>La mejor página de coches con Flask</h4>
+    </div>
+</header>
+{% endblock %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo alineado a la izquierda -->
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la empresa" style="width:160px; height:100px;">
+        </a>
+        
+        <!-- Botón de menú para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú alineado a la derecha -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% block menu %}
+            <ul class="navbar-nav ms-auto" style="text-align: center;">
+                <li class="nav-item"><a class="nav-link" href="menuUsuario.html">Menu Usuario</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('mostrar_coches') }}">Listar coches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listado_eventos') }}">Eventos disponibles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a></li>
+
+            </ul>
+            {% endblock %}
+
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Listado de Coches</h1>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Lista de Coches -->
+    <div class="row">
+        {% for coche in coches %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header text-center bg-dark text-white">
+                    <h3 class="card-title">{{ coche['marca'] }} {{ coche['modelo'] }}</h3> <!-- Marca y Modelo -->
+                </div>
+                <div class="card-body">
+                    <p><strong>Valor:</strong> {{ coche['precio'] }} €</p>
+                    <p><strong>Año de fabricación:</strong> {{ coche['anio'] }}</p>
+                    <p><strong>Kilómetros:</strong> {{ coche['kilometros'] }} kms</p>
+                    <p><strong>Motor:</strong> {{ coche['motor'] }}</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="col-12 text-center">No hay coches registrados en este momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

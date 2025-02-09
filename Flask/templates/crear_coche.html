@@ -1,0 +1,152 @@
+{% extends 'index.html' %}
+
+{% block title %}Insertar Coche{% endblock %}
+<header class="navbar navbar-expand-lg bg-primary text-white text-center p-3">
+    <div class="container">
+        <h4><span>Campaneros Cars</span></h4>
+        <h4>La mejor página de coches con Flask</h4>
+    </div>
+</header>
+
+<!-- Menú personalizado -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo alineado a la izquierda -->
+        <a class="navbar-brand" href="#">
+            <img src="static/images/logo.png" alt="Logo de la empresa" style="width:160px; height:100px;">
+        </a>
+
+        <!-- Botón de menú para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú alineado a la derecha -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% block menu %}
+            <ul class="navbar-nav ms-auto" style="text-align: center;">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('menu_admin') }}">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_coche') }}">Crear coche</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('coches') }}">Listar coches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('insertar_evento') }}">Cree su evento</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('mostrar_eventos') }}">Eventos disponibles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('listar_usuarios') }}">Mostrar_usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a></li>
+
+            </ul>
+            {% endblock %}
+
+        </div>
+    </div>
+</nav>
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        {% if coche %}
+        <h2 class="text-center text-dark my-4">
+            Coche a modificar: 
+            <span class="fw-bold">{{ coche.1 }} {{ coche.2 }}</span>
+        </h2>        
+        {% else %}
+            Inserte datos de su vehículo clásico
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="marca"><strong>Marca</strong></label>
+                        <input type="text" class="form-control text-center" id="marca" name="marca" required 
+                            placeholder="Introduce la marca del coche" 
+                            {% if coche %} value="{{ coche.1 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="modelo"><strong>Modelo</strong></label>
+                        <input type="text" class="form-control text-center" id="modelo" name="modelo" required 
+                            placeholder="Introduce el modelo del coche" 
+                            {% if coche %} value="{{ coche.2 }}" {% endif %}>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="precio"><strong>Precio</strong></label>
+                        <input type="number" class="form-control text-center" id="precio" name="precio" required 
+                            placeholder="Introduce el precio del coche" 
+                            {% if coche %} value="{{ coche.3 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ciudad"><strong>Ciudad</strong></label>
+                        <input type="text" class="form-control text-center" id="ciudad" name="ciudad" required 
+                            placeholder="Introduce la ciudad del coche" 
+                            {% if coche %} value="{{ coche.4 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="anio"><strong>Año</strong></label>
+                        <input type="number" class="form-control text-center" id="anio" name="anio" required 
+                            placeholder="Introduce el año de fabricación del coche" 
+                            {% if coche %} value="{{ coche.5 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dueno"><strong>Dueño</strong></label>
+                        <input type="text" class="form-control text-center" id="dueno" name="dueno" required 
+                            placeholder="Introduce el nombre del dueño del vehículo" 
+                            {% if coche %} value="{{ coche.6 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="kilometros"><strong>Kilometros</strong></label>
+                        <input type="text" class="form-control text-center" id="kilometros" name="kilometros" required 
+                            placeholder="Introduce los kilometros del vehículo" 
+                            {% if coche %} value="{{ coche.7 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="motor"><strong>Motor</strong></label>
+                        <input type="text" class="form-control text-center" id="motor" name="motor" required 
+                            placeholder="Introduce el tipo de motor del vehículo" 
+                            {% if coche %} value="{{ coche.8 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="telefono"><strong>Telefono de contacto</strong></label>
+                        <input type="text" class="form-control text-center" id="telefono" name="telefono" required 
+                            placeholder="Introduce el telefono de contacto" 
+                            {% if coche %} value="{{ coche.9 }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password"><strong>Contraseña</strong></label>
+                        <input type="text" class="form-control text-center" id="password" name="password" required 
+                            placeholder="Introduce tu contraseña" 
+                            {% if coche %} value="{{ coche.9 }}" {% endif %}>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary">Guardar Coche</button>
+        </form>
+        <div class="mt-3">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver al Inicio</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p> Recuerde que para que su vehículo sea considerado clásico, la fecha de fabricación tendrá que ser anterior a 1990.</p>
+{% endblock %}
